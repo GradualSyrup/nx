@@ -76,6 +76,10 @@ impl ISelfController for SelfController {
     fn set_screenshot_permission(&mut self, permission: ScreenShotPermission) -> Result<()> {
         ipc_client_send_request_command!([self.session.object_info; 10] (permission) => ())
     }
+    // from https://github.com/switchbrew/libnx/blob/4fcdb6eb34b20f1f65eb9791fe513a710a001bea/nx/source/services/applet.c#L1200
+    fn report_user_is_active(&mut self) -> Result<()> {
+        ipc_client_send_request_command!([self.session.object_info; 65] () => ())
+    }
 }
 
 ipc_client_define_object_default!(LibraryAppletProxy);
